@@ -1,4 +1,4 @@
-name: example
+name: cron-cdk-docker-push
 
 on:
   schedule:
@@ -18,13 +18,21 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: 'gastonmichel'
+          username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       -
-        name: Build and push to python DockerHub
+        name: Build and push vanilla tag to DockerHub
         uses: docker/build-push-action@v2
         with:
-          context: .
           push: true
-          tags: gastonmichel/app:python
+          tags: gastonmichel/cdk
+          target: build
+      -
+        name: Build and push python tag to DockerHub
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: gastonmichel/cdk:python
           target: python
+
+# TODO: add another languages tags for more flavours
