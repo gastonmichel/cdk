@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   cdk:
-    image: gastonmichel/cdk:latest
+    image: gastonmichel/cdk:python
     privileged: true
     volumes:
     - ~/.aws:/root/.aws
